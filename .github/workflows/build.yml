@@ -29,6 +29,7 @@ jobs:
     steps:
       - name: Check size
         run: df -h
+      # Based on https://github.com/actions/runner-images/issues/2840
       - name: Remove some stuff
         run: |
           sudo rm -rf /usr/share/dotnet
@@ -76,11 +77,16 @@ jobs:
         run: |
           which pip
           which node
+          pwd
       - name: Check size
         run: df -h
       - name: Remove node modules
         run: |
           rm -rf node_modules
+      - name: Check size
+        run: df -h
+      - name: Add sparse file
+        run: truncate -s 2G somefile.txt
       - name: Check size
         run: df -h
 
