@@ -30,7 +30,7 @@ jobs:
       - name: Check size
         run: df -h
       # Based on https://github.com/actions/runner-images/issues/2840
-      - name: Remove some stuff
+      - name: Remove some stuff we don't need
         run: |
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /opt/ghc
@@ -78,11 +78,17 @@ jobs:
           which pip
           which node
           pwd
+          ls -l "$AGENT_TOOLSDIRECTORY"
       - name: Check size
         run: df -h
       - name: Remove node modules
         run: |
           rm -rf node_modules
+      - name: Check size
+        run: df -h
+      - name: Remove node - we don't need it anymore
+        run: |
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY/node"
       - name: Check size
         run: df -h
       - name: Add file
