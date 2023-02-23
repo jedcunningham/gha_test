@@ -85,8 +85,8 @@ jobs:
           rm -rf node_modules
       - name: Check size
         run: df -h
-      - name: Add sparse file
-        run: truncate -s 2G somefile.txt
+      - name: Add file
+        run: fallocate -l 2G somefile.txt
       - name: Check size
         run: df -h
 
