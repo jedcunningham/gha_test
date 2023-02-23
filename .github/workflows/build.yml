@@ -27,6 +27,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check size
+        run: df -h
+      - name: Remove some stuff
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf "/usr/local/share/boost"
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+      - name: Check size
+        run: df -h
       - name: 🗂 Checkout
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
         with:
@@ -66,17 +76,6 @@ jobs:
         run: |
           which pip
           which node
-          echo "$AGENT_TOOLSDIRECTORY"
-          ls -l "$AGENT_TOOLSDIRECTORY"
-      - name: Remove some stuff
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY/node"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY/go"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY/Ruby"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY/Java_Temurin-Hotspot_jdk"
       - name: Check size
         run: df -h
       - name: Remove node modules
