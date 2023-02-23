@@ -33,45 +33,54 @@ jobs:
           submodules: recursive
           lfs: true
       - name: Check size
-        run: |
-          df -h
+        run: df -h
       - name: 🐍 Setup Python
         uses: actions/setup-python@41b7212b1668f5de9d65e9c82aa777e6bbedb3a8 # v2.1.4
         with:
           python-version: "3.7"
       - name: Check size
-        run: |
-          df -h
+        run: df -h
       - name: ❤️  Install Node 16
         uses: actions/setup-node@v3.3.0 # v3.3.0
         with:
           node-version: 16
       - name: Check size
-        run: |
-          df -h
+        run: df -h
       - name: 📚 Install Hugo
         uses: peaceiris/actions-hugo@v2.4.13 # v2.4.13
         with:
           hugo-version: "0.91.2"
           extended: true
       - name: Check size
-        run: |
-          df -h
+        run: df -h
       - name: 🟢 Install node dependencies
         #run: ./site.sh install-node-deps
         run: yarn install
       - name: Check size
-        run: |
-          df -h
+        run: df -h
       - name: 🐍 Install Python dependencies
         run: pip install -r requirements.txt
       - name: Check size
-        run: |
-          df -h
+        run: df -h
       - name: Where are things
         run: |
           which pip
           which node
+          echo "$AGENT_TOOLSDIRECTORY"
+          ls -l "$AGENT_TOOLSDIRECTORY"
+      - name: Remove some stuff
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf "/usr/local/share/boost"
+      - name: Check size
+        run: df -h
+      - name: Remove node modules
+        run: |
+          rm -rf node_modules
+      - name: Check size
+        run: df -h
+
       #- name: 🔧 Prepare sphinx_airflow_theme package ️
       #  working-directory: sphinx_airflow_theme
       #  run: |
